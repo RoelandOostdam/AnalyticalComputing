@@ -105,7 +105,7 @@ matrix = [
 
 for constant in range(1,100000):
     constant = round(constant*0.1,1)
-    # print(constant)
+    print(constant)
     matrix_temp = matrix
     while(matrix_temp!=solve(matrix_temp,constant)):
         matrix_temp = solve(matrix_temp,constant)
