@@ -21,6 +21,7 @@ plt.legend(loc="upper left")
 
 plt.show()
 
+
 # Snelheden van auto's
 dataframe = pd.DataFrame(data)
 dataframeDiff = dataframe[['car1','car2']].diff(axis=0)

@@ -7,8 +7,8 @@ data = pd.read_csv("verkeerssimulatie-rechteweg-snelheden.csv",
                    names = ["time", "car1", "car2", "car3"])
 
 timeDF = data['time'].iloc[1:]
-startPosities = data.iloc[0]  # StartPositie van iedere auto
-startPosities = startPosities.to_frame().T  # Series omzetten en transposen naar DataFrame
+startPositions = data.iloc[0]  # StartPositie van iedere auto
+startPositions = startPositions.to_frame().T  # Series omzetten en transposen naar DataFrame
 data.head()
 
 # Snelheden van de auto's in verloop van tijd
@@ -46,9 +46,9 @@ plt.show()
 
 for x in range(1, dataCumSum.shape[0]):  # Telt de startpositie op bij de auto's waardoor
     # bijvoorbeeld auto 3 'achteraan' start maar door de hoge snelheid auto 1 inhaalt/botst
-    dataCumSum.at[x, 'car1'] += startPosities['car1']
-    dataCumSum.at[x, 'car2'] += startPosities['car2']
-    dataCumSum.at[x, 'car3'] += startPosities['car3']
+    dataCumSum.at[x, 'car1'] += startPositions['car1']
+    dataCumSum.at[x, 'car2'] += startPositions['car2']
+    dataCumSum.at[x, 'car3'] += startPositions['car3']
 
 plt.plot('time', 'car1', data=dataCumSum, label="Auto 1")
 plt.plot('time', 'car2', data=dataCumSum, label="Auto 2")
