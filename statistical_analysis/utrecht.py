@@ -149,20 +149,28 @@ def all_data(data_name):
 	print("Standaard deviatie:", calculate_standard_deviation(info))
 	print("-" * 30)
 
+def round_100(x,up):
+	if(up):
+		x = int(math.ceil(x / 100.0)) * 100
+	else:
+		x = int(math.floor(x / 100.0)) * 100
+	return x
+
 def plot_plot(title, data):
 	plt.plot(periods, data, 'ro')
 	plt.plot(get_trendline(data))
 	plt.plot(calculate_standard_deviation(data))
 	plt.title(title)
+	plt.ylim(round_100(min(data),False),round_100(max(data),True))
 	plt.xticks(rotation=90)
 	plt.show()
 
-data1 = data[columns['BevolkingsgroeiSinds1Januari_13']][-13:-1]
-data2 = data[columns['Bevolkingsgroei_11']][-13:-1]
-periods = data[columns['Perioden']][-13:-1]
+periods = data[columns['Perioden']][-13:-1] # Perioden
 
-all_data('BevolkingsgroeiSinds1Januari_13')
-plot_plot("BevolkingsgroeiSinds1Januari_13", data2)
+d = data[columns['Overledenen_3']][-13:-1]
+all_data('Overledenen_3')
+plot_plot("Overledenen_3", d)
 
-all_data('Bevolkingsgroei_11')
-plot_plot("Bevolkingsgroei_11", data1)
+d = data[columns['LevendGeborenKinderen_2']][-13:-1]
+all_data('LevendGeborenKinderen_2')
+plot_plot("LevendGeborenKinderen_2", d)

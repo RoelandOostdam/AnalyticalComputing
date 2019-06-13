@@ -54,8 +54,7 @@ plt.plot('time', 'car1', data=dataCumSum, label="Auto 1")
 plt.plot('time', 'car2', data=dataCumSum, label="Auto 2")
 plt.plot('time', 'car3', data=dataCumSum, label="Auto 3")
 
-plt.title('Afgelegde afstand van de auto\'s in verloop van tijd'
-          '\n(m) geplot per miliseconde\nInclusief startpositie en tevens ingezoomd')
+plt.title('Afgelegde afstand van de auto\'s in verloop van tijd')
 plt.ylabel('Afstand (m)')
 plt.xlabel('Tijd (s)')
 plt.xlim(0, 4)

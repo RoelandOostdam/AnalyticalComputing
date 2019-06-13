@@ -35,7 +35,6 @@ plt.title("Snelheid van auto's in verloop van tijd")
 plt.ylabel("Snelheid (km/u)")
 plt.xlabel('Tijd (s)')
 plt.xlim((min(timeDF), max(timeDF)))
-# plt.ylim(-50, 500)
 plt.legend(loc="upper left")
 
 plt.show()
