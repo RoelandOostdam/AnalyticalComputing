@@ -37,4 +37,4 @@ class Flumph():
 		return self.vector
 
 f = Flumph()
-f.get_chances(100)
+f.get_chances(10)
