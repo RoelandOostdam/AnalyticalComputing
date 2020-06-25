@@ -1,37 +1,45 @@
-import sys
+import numpy as np
 import json
 
-# arg_file = str(sys.argv[1]) # Command line input ophalen
-# arg_file = 'example.json'
-arg_file = 'example-2layer.json'
-precision = 1 # Precisie van het aantal decimalen (in de voorbeelden altijd 1)
+def read_layer(data, json_index) -> np.ndarray:
+    size_in = int(data[json_index]['size_in'])
+    size_out = int(data[json_index]['size_out'])
+    weights = data[json_index]['weights']
+    matrix = np.zeros([size_in, size_out])
+    for x in data[json_index]['weights']:
+        for y in data[json_index]['weights'][x]:
+            matrix[int(x) - 1][int(y) - 1] = data[json_index]['weights'][x][y]
+    return matrix
 
-with open(arg_file) as json_file:
-	data = json.load(json_file) # Bestand lezen
-	first_layer = 1 # Wordt gebruikt om lege lijsten te initialiseren
-	for layer in data:
-		size_in = data[layer]['size_in'] # Aantal input nodes lezen
-		size_out = data[layer]['size_out'] # Aantal output nodes lezen
+def read_network(filename: str) -> np.ndarray:
+    with open(filename) as json_file:
+        data = json.load(json_file)
+        if data['layer1']:
+            matrix1 = read_layer(data, 'layer1')
+        if filename=='example-2layer.json':
+            matrix2 = read_layer(data, 'layer2')
+    return np.dot(matrix1, matrix2)
 
-		if(first_layer==1): # Lege input en output lijsten definiëren
-			I = [1]*(int(size_in)+1)
-			O = {}
-		else:
-			I = O # Output van vorige laag wordt de input van de volgende
-		L = {} # Lane gewichten dict voor print onderaan
+def run_network(filename: str, input_vector: np.ndarray) -> np.ndarray:
+    matrix = read_network(filename)
+    return matrix.T.dot(input_vector)
 
-		for node in data[layer]['weights']: # Voor elke node
-			l = 0.0 # Alle gewichten gecombineerd teller
-			for lane in data[layer]['weights'][node]: # Voor elke lane
-				l+=float(data[layer]['weights'][node][lane]) # Alle gewichten combineren
-			O[int(node)] = round(I[int(node)]*l,precision) # Output van lane wordt input * gecombineerd gewicht
-			L[int(node)] = round(l,precision)
+# print(read_network("example-2layer.json"))
+matrix = run_network("example-2layer.json", np.array([1,1,1,1,1]))
+print(matrix)
 
-		first_layer = 0 # Zorgt ervoor dat de input lijst niet opnieuw leeg gemaakt word.
-		# Print statements
-		print(layer)
-		print("-"*30)
-		for x in sorted(O):
-			# print("L"+str(x),":",I[x],"----[*",L[x],"]---->",O[x])
-			print("L" + str(x),"-->",O[x])
-		print("-"*30)
+
+
+
+#
+# x = np.array([1, 1, 1, 1, 1])
+# layer1 = np.array([
+#     [0.5, 0.2, 0, -0.1],
+#     [0.2, -0.5, -0.2, 0.8],
+#     [0, -0.1, 0, 0.3],
+#     [0, 0.9, 0.1, 0],
+#     [-0.2, -0.8, -0.1, -0.7]
+# ])
+#
+# a = x.dot(layer1)
+# print(a)
