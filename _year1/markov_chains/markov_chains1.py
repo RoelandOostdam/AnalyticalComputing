@@ -5,13 +5,12 @@ import matplotlib.pyplot as plt
 class Flumph():
 	def __init__(self):
 		self.matrix = np.array([ # Aanmaken van de kansentabel
-			[0.6, 0.1, 0.1, 0.2], # Vandaag hongerig
-			[0.4, 0.3, 0.2, 0.1], # Vandaag tevreden
-			[0.6, 0.1, 0.1, 0.2], # Vandaag opgejaagd
-			[0.1, 0.1, 0.3, 0.5] # Vandaag zoutig
+			[0.8, 0.1, 0.1], # Vandaag hongerig
+			[0.4, 0.5, 0.1], # Vandaag tevreden
+			[0.6, 0.2, 0.2], # Vandaag Opgejaagd
 		])
-		self.state_names = ["Hungry", "Satisfied", "Scared", "Salty"] # Naam van states
-		self.vector = [0.7,0.1,0.1,0.1] # Begin vector/kansen
+		self.state_names = ["Hungry", "Satisfied", "Scared"] # Naam van states
+		self.vector = [0.7,0.1,0.2] # Begin vector/kansen
 
 	def get_chances(self, steps=1):
 		timeline = np.array([self.vector]) # Array om kansen bij te houden voor het plotten
